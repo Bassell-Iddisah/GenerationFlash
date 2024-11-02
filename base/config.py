@@ -1,0 +1,7 @@
+
+
+class Config:
+    SECRET_KEY = 'c5abfbf28ca9444db16eb5e79e8c137343b89237d511d129ae\
+    22551e46a45eb18511a52973ae3eabd8a01e0feaad9fe2a74356c113219a35c7242153'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///generation.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

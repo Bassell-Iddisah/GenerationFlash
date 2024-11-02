@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+    {% block content %}
+        <h1>GenerationFlash</h1>
+        <p>Master Your Notes, Accelerate Your Learning</p>
+
+        <div class="main-card">
+        <h3>Upload a document to convert it</h3>
+        <form action="{{ url_for('main.get_deck') }}" id="uploadForm" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <label for="documentName">Lecture Title:</label> <br>
+                <input type="text" id="documentName" name="note" required>
+            </div>
+
+            <div class="input-group">
+                <label for="lecture-note">Upload File:</label> <br>
+                <input type="file" id="lecture-note" name="lecture-note" accept=".doc,.docx,.pdf,.txt,.json" required>
+            </div>
+            <button type="submit" id="uploadButton" class="uploadbutton">Upload & Convert</button>
+        </form>
+            <br>
+            {% if download_url %}
+                <a href="{{ url_for('static', filename='success/'+filename+'.apkg') }}" download>{{ filename }}</a>
+            {% endif %}
+    </div>
+
+        <script>
+        const form = document.getElementById('uploadForm');
+        const documentNameInput = document.getElementById('documentName');
+        const fileInput = document.getElementById('lecture-note');
+        const uploadButton = document.getElementById('uploadButton');
+        const errorAlert = document.getElementById('errorAlert');
+        const successAlert = document.getElementById('successAlert');
+        const downloadLink = document.getElementById('downloadLink');
+        let document; // Variable to store the document name
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            document = documentNameInput.value.trim();
+            if (!document) {
+                showError("Please enter a document name.");
+                return;
+            }
+
+            if (!fileInput.files.length) {
+                showError("Please select a file to upload.");
+                return;
+            }
+
+            const formData = new FormData(form);
+            uploadButton.disabled = true;
+            uploadButton.textContent = 'Converting...';
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'none';
+            downloadLink.style.display = 'none';
+
+            try {
+                const response = await fetch('/get-deck', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Conversion failed');
+                }
+
+                const data = await response.json();
+                showSuccess(`Your document "${document}" has been converted. Click the button below to download.`);
+                downloadLink.href = data.download_url;
+                downloadLink.style.display = 'inline-block';
+            } catch (error) {
+                showError("An error occurred during file conversion. Please try again.");
+            } finally {
+                uploadButton.disabled = false;
+                uploadButton.textContent = 'Upload & Convert';
+            }
+        });
+
+        function showError(message) {
+            errorAlert.textContent = message;
+            errorAlert.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            successAlert.textContent = message;
+            successAlert.style.display = 'block';
+        }
+    </script>
+    {% endblock content %}

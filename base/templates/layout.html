@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenerationFlash</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/css/styles.css') }}">
+</head>
+<body>
+
+    <nav class="navbar" role="navigation">
+            <div class="brand">GenerationFlash</div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                ☰
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                <li><a href="{{ url_for('main.about') }}">About</a></li>
+                <li><a href="{{ url_for('main.announcements') }}">Announcements</a></li>
+                <li><a href="{{ url_for('main.donate') }}">Donate</a></li>
+            </ul>
+    </nav>
+
+    <section class="main">
+        <div class="sec1">
+            <h1>Usage Instructions</h1> <br>
+
+            <ol>
+                <li>Download and Install Anki :> <a href="https://apps.ankiweb.net/" target="_blank">Get Anki</a></li>
+                <li>Enter the lecture note Name</li>
+                <li>Upload Your Lecture Notes</li>
+                <li>Download the Converted Anki Deck</li>
+                <li>Open the Deck in Anki</li>
+            </ol>
+        </div>
+
+        <div class="sec2">
+            {% block content%}
+            {% endblock content%}
+        </div>
+
+        <div class="sec3">
+            <h1>About</h1>
+            <br>
+            <p>
+                With GenerationFlash, students can turn their lecture notes into
+                dynamic Anki flashcards in seconds. Just upload your notes, and let
+                GenerationFlash generate customized flashcards for effective, rapid
+                learning and revision. Whether prepping for exams or reinforcing key
+                concepts, GenerationFlash helps you retain information faster, empowering
+                you to study smarter, not harder.
+            </p>
+        </div>
+    </section>
+
+
+</body>
+</html>
