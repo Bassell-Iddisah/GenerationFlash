@@ -80,6 +80,7 @@ section.main {
 
 section.main > * {
     max-width: calc(33.33333%);
+    min-width: 300px;
     height: 90%;
     flex-wrap: wrap;
     text-align: center;
@@ -88,7 +89,7 @@ section.main > * {
 
 section.main .sec1{
     flex-grow: 1;
-    border-right: 1px solid var(--shadow-color);
+/*    border-right: 1px solid var(--shadow-color);*/
 }
 
 section.main .sec1 ol {
@@ -100,10 +101,10 @@ section.main .sec1 ol {
 }
 
 section.main .sec2{
-    min-width: calc(40%);
+    min-width: 300px;;
     flex-basis: 500px;
     flex-grow: 2;
-    border-right: 1px solid var(--shadow-color);
+/*    border-right: 1px solid var(--shadow-color);*/
 }
 
 section.main .sec3{
@@ -141,4 +142,22 @@ form .uploadbutton{
     background: var(--accent-color);
     color: var(--light-color);
     padding: 0.6rem 0;
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        font-size: 0.8rem;
+    }
+
+    .navbar .nav-links a {
+        padding: 0.1rem;
+    }
+    .sec1, .sec3 {
+        display: none;
+    }
+
+    .sec2 {
+        margin: auto;
+        border-right: none;
+    }
 }
